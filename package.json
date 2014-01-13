@@ -1,0 +1,36 @@
+{
+  "name": "connect-server-status",
+  "version": "0.1.0",
+  "description": "Server status middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jshint test/ index.js && ./node_modules/.bin/mocha test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/martinj/node-connect-server-status",
+    "homepage": "http://github.com/martinj/node-connect-server-status"
+  },
+  "keywords": [
+    "connect",
+    "express",
+    "middleware",
+    "status",
+    "maintenance"
+  ],
+  "author": "Martin Jonsson <martin.jonsson@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martinj/node-connect-server-status/issues"
+  },
+  "dependencies": {
+    "q": "~1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.0",
+    "should": "~2.1.1",
+    "supertest": "~0.8.3",
+    "jshint": "~2.4.1",
+    "express": "~3.4.7"
+  }
+}
