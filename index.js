@@ -1,5 +1,5 @@
 'use strict';
-var Q = require('q'),
+var Promise = require('bluebird'),
 	http = require('http'),
 	fs = require('fs');
 
@@ -24,7 +24,7 @@ function extend(obj) {
  * @return {Promise}	Resolves with {type: connections}
  */
 function getConnections(server) {
-	var defer = Q.defer();
+	var defer = Promise.defer();
 	server.getConnections(function (err, concurrentConnections) {
 		if (err) {
 			defer.reject(new Error('Unable to fetch connection status for server: ' + err.message));
@@ -45,7 +45,7 @@ function getConnections(server) {
 function status(servers, add) {
 	add = typeof(add) === 'function' ? add() : add;
 
-	return Q.all(servers.map(function (srv) {
+	return Promise.all(servers.map(function (srv) {
 		return getConnections(srv);
 	})).then(function (results) {
 		var connections = { total: 0 };
@@ -55,7 +55,7 @@ function status(servers, add) {
 			connections[k] = res[k];
 		});
 
-		return Q.resolve(extend({
+		return Promise.resolve(extend({
 			pid: process.pid,
 			connections: connections,
 			memory: process.memoryUsage(),
@@ -80,9 +80,9 @@ module.exports = function (servers, opts) {
 		var sendStatus = function () {
 			status(servers, opts.add || {}).then(function (status) {
 				res.send(status);
-			}).fail(function (err) {
+			}).catch(function (err) {
 				next(err);
-			}).done();
+			});
 		};
 
 		if (opts.maintenance) {

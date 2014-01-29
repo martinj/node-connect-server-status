@@ -1,6 +1,6 @@
 {
   "name": "connect-server-status",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Server status middleware",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "url": "https://github.com/martinj/node-connect-server-status/issues"
   },
   "dependencies": {
-    "q": "~1.0.0"
+    "bluebird": "~1.0.1"
   },
   "devDependencies": {
     "mocha": "~1.17.0",
