@@ -30,7 +30,7 @@ Connect middleware for showing a status page including maintenance mode.
 	 * @param  {Object} [opts] options
 	 * @param {String} [opts.maintenance] path to maintenance file for enabling maintenance check on status requests.
 	 *                                    Returns status code 503 service unavailable when in maintenance
-	 * @param {Object|Function} [opts.add] properties to add to the status output.
+	 * @param {Object|Function} [opts.add] properties to add to the status output, for async function return a promise
 	 * @return {Function}
 	 */
 	module.exports = function (servers, opts) {

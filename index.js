@@ -55,12 +55,17 @@ function status(servers, add) {
 			connections[k] = res[k];
 		});
 
-		return Promise.resolve(extend({
-			pid: process.pid,
+		return Promise.props({
 			connections: connections,
+			add: add
+		});
+	}).then(function (data) {
+		return extend({
+			pid: process.pid,
+			connections: data.connections,
 			memory: process.memoryUsage(),
 			uptime: process.uptime()
-		}, add));
+		}, data.add);
 	});
 }
 
