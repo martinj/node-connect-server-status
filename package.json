@@ -1,8 +1,9 @@
 {
   "name": "connect-server-status",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Server status middleware",
   "main": "index.js",
+  "engine": "node >= 0.8.0",
   "scripts": {
     "test": "./node_modules/.bin/jshint test/ index.js && ./node_modules/.bin/mocha test/*.test.js"
   },
