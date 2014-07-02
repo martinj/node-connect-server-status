@@ -28,7 +28,7 @@
     "url": "https://github.com/martinj/node-connect-server-status/issues"
   },
   "dependencies": {
-    "bluebird": "^2.1.3"
+    "bluebird": "~2.1.3"
   },
   "devDependencies": {
     "express": "~3.4.7",
