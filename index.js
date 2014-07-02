@@ -32,17 +32,12 @@ function getConnections(server) {
 		defer.resolve(r);
 	}
 
-	if (typeof(server.getConnections) !== 'function') {
-		//node 0.8 compability.
-		done(server.connections);
-	} else {
-		server.getConnections(function (err, concurrentConnections) {
-			if (err) {
-				defer.reject(new Error('Unable to fetch connection status for server: ' + err.message));
-			}
-			done(concurrentConnections);
-		});
-	}
+	server.getConnections(function (err, concurrentConnections) {
+		if (err) {
+			defer.reject(new Error('Unable to fetch connection status for server: ' + err.message));
+		}
+		done(concurrentConnections);
+	});
 
 	return defer.promise;
 }
