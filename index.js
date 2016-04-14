@@ -24,22 +24,19 @@ function extend(obj) {
  * @return {Promise}	Resolves with {type: connections}
  */
 function getConnections(server) {
-	var defer = Promise.defer();
+	return new Promise(function (resolve, reject) {
 
-	function done(concurrentConnections) {
-		var r = {};
-		r[server instanceof http.Server ? 'http' : 'https'] = concurrentConnections;
-		defer.resolve(r);
-	}
+		server.getConnections(function (err, concurrentConnections) {
+			if (err) {
+				return reject(new Error('Unable to fetch connection status for server: ' + err.message));
+			}
 
-	server.getConnections(function (err, concurrentConnections) {
-		if (err) {
-			defer.reject(new Error('Unable to fetch connection status for server: ' + err.message));
-		}
-		done(concurrentConnections);
+			var r = {};
+			r[server instanceof http.Server ? 'http' : 'https'] = concurrentConnections;
+			resolve(r);
+		});
+
 	});
-
-	return defer.promise;
 }
 
 /**
@@ -90,7 +87,7 @@ module.exports = function (servers, opts) {
 	return function (req, res, next) {
 		var sendStatus = function () {
 			status(servers, opts.add || {}).then(function (status) {
-				res.send(status);
+				res.json(status);
 			}).catch(function (err) {
 				next(err);
 			});
@@ -99,7 +96,7 @@ module.exports = function (servers, opts) {
 		if (opts.maintenance) {
 			fs.exists(opts.maintenance, function (exists) {
 				if (exists) {
-					return res.send(503);
+					return res.sendStatus(503);
 				}
 				sendStatus();
 			});
