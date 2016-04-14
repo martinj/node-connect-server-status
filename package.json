@@ -1,6 +1,6 @@
 {
   "name": "connect-server-status",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Server status middleware",
   "main": "index.js",
   "engines": {
